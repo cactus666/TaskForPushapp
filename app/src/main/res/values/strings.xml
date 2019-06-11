@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TaskForPushapp</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="title_first_act">Сохраненные пароли</string>
+
+    <string name="title_second_act">Новая запись</string>
+    <string name="et_name_second_act">Название</string>
+    <string name="et_link_second_act">Ссылка на сайт</string>
+    <string name="et_login_second_act">Логин</string>
+    <string name="et_pass_second_act">Пароль</string>
+    <string name="et_pass2_second_act">Повторит пароль</string>
+    <string name="btn_save_second_act">Сохранить</string>
+</resources>

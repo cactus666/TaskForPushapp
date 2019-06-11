@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/design_default_color_primary_dark">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/et_name_second_act"
+        style="@style/field" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/et_link_second_act"
+        style="@style/field" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/et_login_second_act"
+        style="@style/field" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/field" >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_pass_second_act"
+            android:layout_toLeftOf="@+id/pass"
+            android:inputType="textPassword" />
+
+        <ImageButton
+            android:id="@+id/pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_show_pass"
+            android:backgroundTint="@color/cardview_light_background"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/field" >
+
+        <EditText
+            android:id="@+id/val_pass2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/et_pass2_second_act"
+            android:layout_toLeftOf="@+id/pass2"
+            android:inputType="textPassword" />
+
+        <ImageButton
+            android:id="@+id/pass2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_show_pass"
+            android:backgroundTint="@color/cardview_light_background"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/field" >-->
+
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:id="@+id/etPasswordLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:passwordToggleEnabled="true"-->
+            <!--android:layout_marginBottom="@drawable/ic_show_pass">-->
+
+            <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/etPassword"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="@string/et_pass2_second_act"-->
+                <!--android:inputType="textPassword"/>-->
+        <!--</android.support.design.widget.TextInputLayout>-->
+
+    <!--</RelativeLayout>-->
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_save_second_act"
+        style="@style/btn" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/registration_screen_text_input_layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_screen_title"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="25dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/registration_screen_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_show_pass"
+            android:drawablePadding="10dp"
+            android:hint="df"
+            android:inputType="textPersonName"
+            android:paddingBottom="20dp"
+            android:textColor="@color/cardview_light_background" />
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
