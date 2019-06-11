@@ -19,14 +19,14 @@
 
     <style name="field">
         <item name="android:background">@drawable/rounded_edittext</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:padding">15dp</item>
     </style>
 
     <style name="btn">
         <item name="android:background">@drawable/rounded_btn</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:padding">15dp</item>
         <item name="android:textColor">@color/cardview_light_background</item>
     </style>
 
