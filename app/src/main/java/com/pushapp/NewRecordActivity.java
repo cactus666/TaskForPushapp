@@ -1,9 +1,11 @@
 package com.pushapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,11 +13,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import static com.pushapp.DB.DBHelper.getInstance;
+import com.pushapp.DB.DBHelper;
+import com.pushapp.POJO.Password;
 
 public class NewRecordActivity extends AppCompatActivity {
 
+    private boolean state = false; // true - редактирование
     private Button btn_save;
+    private Password updatePasswordElement;
     private EditText name;
     private EditText link;
     private EditText login;
@@ -45,8 +50,21 @@ public class NewRecordActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if( (val_pass.getText().toString().intern() == val_pass2.getText().toString().intern() ) && (val_pass.getText().toString().trim().length() != 0) ){
-                // еще проверка на наличие пароля
-                getInstance(NewRecordActivity.this).insertNewPass(val_pass.getText().toString());
+                if(!state) {
+                    // еще проверка на наличие пароля
+                    Intent intent = new Intent();
+                    intent.putExtra("new_obj", new Password(name.getText().toString(),
+                            link.getText().toString(),
+                            login.getText().toString(),
+                            val_pass.getText().toString(),
+                            DBHelper.getId()));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    DBHelper.getInstance(NewRecordActivity.this).updatePass(updatePasswordElement);
+                    System.out.println("finish _ new activity");
+                    finish();
+                }
             }else{
                 Toast.makeText(NewRecordActivity.this, "fail", Toast.LENGTH_SHORT).show();
             }
@@ -80,31 +98,25 @@ public class NewRecordActivity extends AppCompatActivity {
         btn_save.setOnClickListener(listener_save_btn);
         arrow_back.setOnClickListener(listener_arrow_back);
 
+
+
          Toolbar toolbar = findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
 
+         try {
+             if (getIntent().getExtras() != null) {
+                 state = true;
+                 updatePasswordElement = (Password) getIntent().getExtras().getParcelable("edit_element");
+                 name.setText(updatePasswordElement.getName());
+                 link.setText(updatePasswordElement.getLink());
+                 login.setText(updatePasswordElement.getLogin());
+                 val_pass.setText(updatePasswordElement.getPass());
+                 val_pass2.setText(updatePasswordElement.getPass());
+             }
+         }catch(Exception ex){
+             Log.e("error", "забыл закинуть объект!(");
+         }
+
     }
 
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 }

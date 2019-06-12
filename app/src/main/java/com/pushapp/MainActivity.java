@@ -2,6 +2,7 @@ package com.pushapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,10 +16,13 @@ import net.sqlcipher.database.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pushapp.DB.DBHelper.getInstance;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private List<Password> passwords = new ArrayList<>();
+    //RecyclerView.Adapter<PassAdapter.PasswordsHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(R.string.title_first_act);
 
-        passwords.add(new Password("lol", "1w", "er", "12w", 1));
+        passwords = getInstance(MainActivity.this).getAllPassword();
         mRecyclerView = findViewById(R.id.recycler_view_passwords);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new PassAdapter(passwords));
+        System.out.println("SIZE = "+passwords.size());
+        mRecyclerView.setAdapter(new PassAdapter(passwords, this));
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -41,11 +46,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent_for_new_record = new Intent(MainActivity.this, NewRecordActivity.class);
-                startActivity(intent_for_new_record);
-//                startActivityForResult();
+                startActivityForResult(intent_for_new_record, 1);
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 1){
+            Password new_element = (Password) data.getParcelableExtra("new_obj");
+            passwords.add(new_element);
+            //adapter.notifyDataSetChanged();
+            mRecyclerView.setAdapter(new PassAdapter(passwords, this));
+            getInstance(MainActivity.this).insertNewPass(new_element);
+        }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        passwords = getInstance(MainActivity.this).getAllPassword();
+        //adapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(new PassAdapter(passwords, this));
+    }
 }
