@@ -51,7 +51,6 @@ public class NewRecordActivity extends AppCompatActivity {
         public void onClick(View v) {
             if( (val_pass.getText().toString().intern() == val_pass2.getText().toString().intern() ) && (val_pass.getText().toString().trim().length() != 0) ){
                 if(!state) {
-                    // еще проверка на наличие пароля
                     Intent intent = new Intent();
                     intent.putExtra("new_obj", new Password(name.getText().toString(),
                             link.getText().toString(),
@@ -61,12 +60,16 @@ public class NewRecordActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     finish();
                 }else{
+                    updatePasswordElement.setName(name.getText().toString());
+                    updatePasswordElement.setLink(link.getText().toString());
+                    updatePasswordElement.setLogin(login.getText().toString());
+                    updatePasswordElement.setPass(val_pass.getText().toString());
                     DBHelper.getInstance(NewRecordActivity.this).updatePass(updatePasswordElement);
                     System.out.println("finish _ new activity");
                     finish();
                 }
             }else{
-                Toast.makeText(NewRecordActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewRecordActivity.this, "Введите корректные данные", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -98,10 +101,8 @@ public class NewRecordActivity extends AppCompatActivity {
         btn_save.setOnClickListener(listener_save_btn);
         arrow_back.setOnClickListener(listener_arrow_back);
 
-
-
-         Toolbar toolbar = findViewById(R.id.toolbar);
-         setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
          try {
              if (getIntent().getExtras() != null) {

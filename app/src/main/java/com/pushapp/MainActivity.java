@@ -7,12 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
-
 import com.pushapp.POJO.Password;
-
 import net.sqlcipher.database.SQLiteDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private List<Password> passwords = new ArrayList<>();
-    //RecyclerView.Adapter<PassAdapter.PasswordsHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view_passwords);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        System.out.println("SIZE = "+passwords.size());
         mRecyclerView.setAdapter(new PassAdapter(passwords, this));
 
 
@@ -49,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent_for_new_record, 1);
             }
         });
+
     }
 
     @Override
@@ -57,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == 1){
             Password new_element = (Password) data.getParcelableExtra("new_obj");
             passwords.add(new_element);
-            //adapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(new PassAdapter(passwords, this));
             getInstance(MainActivity.this).insertNewPass(new_element);
         }
@@ -67,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         passwords = getInstance(MainActivity.this).getAllPassword();
-        //adapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(new PassAdapter(passwords, this));
     }
 }
