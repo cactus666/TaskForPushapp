@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
             instance = new DBHelper(context);
         return instance;
     }
-
+//
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE);
